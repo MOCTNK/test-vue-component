@@ -1,0 +1,310 @@
+.ed-plan-two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 24px;
+    column-gap: 24px;
+}
+.ed-plan-main-info {
+    margin-top: 20px;
+}
+.ed-plan .period-slider {
+    margin-bottom: 32px;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-two-columns {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+        row-gap: 32px;
+    }
+}
+@media (max-width: 989.98px) {
+    .ed-plan-two-columns > div:nth-child(1),
+    .ed-plan-two-columns > div:nth-child(2) {
+        grid-column: 1 / 3;
+    }
+}
+@media (max-width: 639.98px) {
+    .ed-plan-two-columns > div:nth-child(1),
+    .ed-plan-two-columns > div:nth-child(2) {
+        grid-column: 1 / 2;
+    }
+}
+
+.ed-plan-three-columns {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, min-content);
+    grid-auto-flow: column;
+    row-gap: 24px;
+    column-gap: 24px;
+}
+
+.ed-plan-three-columns-not-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: 24px;
+    column-gap: 24px;
+}
+
+@media (max-width: 1100px) {
+    .ed-plan-three-columns {
+        grid-auto-flow: row;
+        grid-template-columns: 1fr;
+    }
+}
+
+.ed-plan-main-info__label {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 120%;
+    margin-bottom: 10px;
+    color: #8C9198;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.ed-plan-main-info__label svg {
+    cursor: pointer;
+}
+.ed-plan-two-columns__column {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: min-content;
+    column-gap: 12px;
+    row-gap: 24px;
+    align-items: flex-end;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-two-columns__column {
+        column-gap: 12px;
+        row-gap: 32px;
+        grid-column: 1 / 3;
+    }
+}
+.ed-plan-two-columns__row {
+    grid-column: 1 / 3;
+}
+
+.ed-plan-two-columns__field.align-flex-start {
+    align-self: flex-start;
+}
+.ed-plan-two-columns__field.align-flex-end {
+    align-self: flex-end;
+}
+
+
+/* ---------------TARGET AUDIENCE--- */
+.ed-plan-target-audience__groups {
+    grid-column: 1 / 3;
+}
+@media (max-width: 989.98px) {
+    .ed-plan-target-audience__groups {
+        gap: 12px;
+    }
+}
+.ed-plan-target-audience__groups-field-inner {
+    display: grid;
+    grid-template-columns: 298px auto;
+    align-items: center;
+    gap: 12px;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-target-audience__groups-field-inner {
+        grid-template-columns: 1fr;
+    }
+}
+.ed-plan-target-audience__groups-text {
+    display: flex;
+    align-items: flex-end;
+    max-width: 271px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 120%;
+    color: #8C9198;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-target-audience__groups-text {
+        max-width: unset;
+    }
+}
+.ed-plan-target-audience__column-title {
+    font-family: var(--nlmk-main-font);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 168%;
+    color: #202429;
+}
+.ed-plan-target-audience__main {
+    grid-column: 1 / 2;
+}
+.ed-grid-two-columns {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 24px;
+    column-gap: 24px;
+    align-content: flex-start;
+}
+.ed-plan-target-audience__additional {
+    align-content: flex-start;
+}
+@media (max-width: 989.98px) {
+    .ed-plan-target-audience__additional {
+        grid-column: 1 / 3;
+    }
+}
+.ed-plan-target-audience__info {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #D1D6E5;
+    grid-column: 1 / 3;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-target-audience__info> div:first-child {
+        grid-column: 1 / 3;
+    }
+}
+.ed-plan-target-audience-intramural {
+    grid-column: 1 / 2;
+}
+.ed-plan-target-audience__projects-list {
+    display: grid;
+    row-gap: 24px;
+    grid-column: 1 / 3;
+}
+.ed-plan-target-audience__project {
+    padding-bottom: 12px;
+    border-bottom: 1px solid #D1D6E5;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-target-audience__project {
+        /*row-gap: 12px;*/
+    }
+    .ed-plan-target-audience__project > div:nth-child(1),
+    .ed-plan-target-audience__project > div:nth-child(2) {
+        grid-column: 1 / 3;
+    }
+}
+.ed-plan-target-audience__add-project-btn {
+    display: flex;
+    align-items: center;
+    font-family: var(--nlmk-main-font);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 162%;
+    color: #01519D;
+    cursor: pointer;
+}
+.ed-plan-target-audience__add-project-btn svg {
+    margin-right: 10px;
+}
+
+
+/*-------------- FORMAT ----------------------*/
+.ed-plan__tabs {
+    margin: 0 24px;
+}
+.main-plan__actions {
+    display: flex;
+    justify-content: end;
+    margin: 24px;
+}
+.ed-plan-format__info {
+    display: flex;
+    align-items: baseline;
+    margin-top: 32px;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-format__info {
+        flex-direction: column;
+    }
+}
+.ed-plan-format__field {
+    max-width: 292px;
+}
+.ed-plan-format__title {
+    display: block;
+    font-size: 15px;
+    margin-bottom: 12px;
+    margin-right: 12px;
+}
+.ed-plan-format__title--mobile {
+    display: none;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-format__title {
+        display: none;
+    }
+    .ed-plan-format__title--mobile {
+        display: block;
+    }
+}
+.ed-plan-format__field-title {
+    font-family: var(--nlmk-main-font);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 168%;
+    color: #202429;
+}
+.ed-plan-format__field--peoples {
+    margin-bottom: 24px;
+}
+.ed-plan-format__field-title {
+    margin-right: 12px;
+    font-family: var(--nlmk-main-font);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 168%;
+    color: #202429;
+}
+.ed-plan-format__clusters {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+@media (max-width: 639.98px) {
+    .ed-plan-format__clusters {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/*---------------------PERIOD-PLAN---------------------*/
+.period-plan {
+    position: relative;
+    display: flex;
+    overflow-x: auto;
+    padding-top: 12px;
+    padding-bottom: 32px;
+    margin-bottom: 24px;
+    margin-left: 24px;
+    scrollbar-color: #01519D #DCDEE1;
+    scrollbar-width: thin;
+}
+.period-plan::-webkit-scrollbar {
+    height: 8px;
+    width: 4px;
+}
+.period-plan::-webkit-scrollbar-thumb {
+    background-color: #01519D;
+    border-radius: 4px;
+    border: 2px solid #DCDEE1;
+}
+
+.period-plan::-webkit-scrollbar-track {
+    background: #DCDEE1;
+    border-radius: 10px;
+}
+
+.check-correct-data {
+    padding: 24px;
+    font-weight: 400;
+    font-size: 13px;
+    color: #F22424;
+}
+
+.ed-plan__title {
+    flex-grow: 1;
+}
+
+.v-fixed-block__btn {
+    background-color: #01519D;
+}
