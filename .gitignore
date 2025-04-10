@@ -1,0 +1,10 @@
+/bitrix
+/upload
+.idea
+/local/vendor
+/local/composer.lock
+.access.php
+favicon.ico
+/local/js/**/dist
+/local/modules/sprint.migration
+
