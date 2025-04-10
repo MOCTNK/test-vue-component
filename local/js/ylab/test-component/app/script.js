@@ -1,32 +1,62 @@
 import {BitrixVue} from 'ui.vue3';
 import './style/style.css';
-import {SubComponent} from "../components/SubComponent/script";
 import {VExample} from "../../shared/ui/VExample/script";
+import { VInput } from  "../components/VInput/script";
+import {runAction} from "./service";
 
 const TestComponent = {
     name: 'TestComponent',
     components: {
-        SubComponent,
-        VExample
+        VExample,
+        VInput
     },
     props: {
-        fields: Array
+        signedParameters: String,
+        messages: String,
+        baseData: String,
+        component: String,
     },
-    method: {
-        handleCustomEvent() {
-            alert('CLICK');
+    data()
+    {
+        return {
+            BXmessages: BX.parseJSON(this.messages),
+            params: this.signedParameters,
+            component: this.component,
+            formData: {
+                lastName: '',
+            }
         }
+    },
+    created() {
+        let data = BX.parseJSON(this.baseData);
+        this.formData.lastName = data?.lastName ?? '';
+    },
+    methods: {
+        handleUpdateLastName(value) {
+            this.formData.lastName = value;
+        },
+        handleClick() {
+            let payload = {
+                lastName: this.formData.lastName
+            }
+            runAction('updateLastName', payload, this.component, this.signedParameters).then((response) => {
+                alert('change last name');
+            }).catch((e) => {
+                alert('error');
+                console.log(e.errors);
+            })
+        },
     },
     template: `
         <div>
 
-            <h1>My</h1>
-            <VExample 
-                :name="'TEST name'"
+            <VInput 
+                :value="formData.lastName"
+                @update="handleUpdateLastName"
             />
-            <SubComponent 
-                @customEvent="handleCustomEvent()"
-            />
+            <button
+                @click="handleClick"
+            >click</button>
 
         </div>
     `

@@ -9,8 +9,12 @@ use Bitrix\Main\Engine\Response\AjaxJson;
 use Bitrix\Main\Error;
 use Bitrix\Main\Errorable;
 use Bitrix\Main\ErrorCollection;
+use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use CBitrixComponent;
+use Throwable;
+use Ylab\Mentoring\Dto\User\UpdateUserLastNameDto;
+use Ylab\Mentoring\Services\Test\TestService;
 
 /**
 
@@ -18,6 +22,7 @@ use CBitrixComponent;
 class TestComponent extends CBitrixComponent implements Controllerable, Errorable
 {
 
+    private TestService $testService;
     /** @var ErrorCollection $errorCollection */
     protected ErrorCollection $errorCollection;
 
@@ -28,6 +33,8 @@ class TestComponent extends CBitrixComponent implements Controllerable, Errorabl
      */
     public function __construct($component = null)
     {
+        Loader::requireModule('ylab.mentoring');
+        $this->testService = new TestService();
         $this->errorCollection = new ErrorCollection();
 
         parent::__construct($component);
@@ -44,8 +51,8 @@ class TestComponent extends CBitrixComponent implements Controllerable, Errorabl
         $onlyPost = new HttpMethod([HttpMethod::METHOD_POST]);
 
         return [
-            /** @see self::saveAction() */
-            'save' => [
+            /** @see self::updateLastNameAction() */
+            'updateLastName' => [
                 'prefilters' => [
                     $csrf,
                     $onlyPost,
@@ -86,6 +93,8 @@ class TestComponent extends CBitrixComponent implements Controllerable, Errorabl
     public function executeComponent(): void
     {
 
+        $this->arResult['baseData'] = $this->buildResult();
+
         if (!$this->errorCollection->isEmpty()) {
             $this->arResult['ERRORS'] = $this->getErrors();
         }
@@ -93,13 +102,29 @@ class TestComponent extends CBitrixComponent implements Controllerable, Errorabl
         $this->includeComponentTemplate();
     }
 
-    /**
-     * @param array $formData
-     * @return AjaxJson
-     */
-    public function saveAction(array $formData): AjaxJson
+    protected function buildResult(): array
     {
         $result = [];
+
+        try {
+            $result = $this->testService->getFormData();
+
+        } catch (Throwable $e) {
+            $this->setError($e->getMessage());
+        }
+
+        return $result;
+    }
+
+    public function updateLastNameAction(string $lastName): AjaxJson
+    {
+        $result = [];
+
+        try {
+            $this->testService->updateUserLastName(new UpdateUserLastNameDto(lastName: $lastName));
+        } catch (Throwable $e) {
+            $this->setError($e->getMessage());
+        }
 
         return $this->responseAjax($result);
     }
