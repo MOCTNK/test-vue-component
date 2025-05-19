@@ -2,6 +2,7 @@
 
 namespace Ylab\Service\Components;
 
+use Bitrix\Main\Application;
 use Bitrix\Main\Engine\ActionFilter\Csrf;
 use Bitrix\Main\Engine\ActionFilter\HttpMethod;
 use Bitrix\Main\Engine\Contract\Controllerable;
@@ -12,6 +13,7 @@ use Bitrix\Main\ErrorCollection;
 use Bitrix\Main\Loader;
 use Bitrix\Main\LoaderException;
 use CBitrixComponent;
+use CFile;
 use Throwable;
 use Ylab\Mentoring\Dto\User\UpdateUserLastNameDto;
 use Ylab\Mentoring\Services\Test\TestService;
@@ -53,6 +55,13 @@ class TestComponent extends CBitrixComponent implements Controllerable, Errorabl
         return [
             /** @see self::updateLastNameAction() */
             'updateLastName' => [
+                'prefilters' => [
+                    $csrf,
+                    $onlyPost,
+                ]
+            ],
+            /** @see self::uploadFilesAction() */
+            'uploadFiles' => [
                 'prefilters' => [
                     $csrf,
                     $onlyPost,
@@ -127,6 +136,21 @@ class TestComponent extends CBitrixComponent implements Controllerable, Errorabl
         }
 
         return $this->responseAjax($result);
+    }
+
+    public function uploadFilesAction(): AjaxJson
+    {
+        try {
+            $request = Application::getInstance()->getContext()->getRequest();
+            $file = $request->getFile('file');
+            if($file) {
+                CFile::SaveFile($file, 'my_file');
+            }
+        } catch (Throwable $e) {
+            $this->setError($e->getMessage());
+        }
+
+        return $this->responseAjax();
     }
 
     /**

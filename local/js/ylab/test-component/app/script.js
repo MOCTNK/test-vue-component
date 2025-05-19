@@ -3,12 +3,14 @@ import './style/style.css';
 import {VExample} from "../../shared/ui/VExample/script";
 import { VInput } from  "../components/VInput/script";
 import {runAction} from "./service";
+import {VFileReader} from "../../shared/ui/VFileReader/script";
 
 const TestComponent = {
     name: 'TestComponent',
     components: {
         VExample,
-        VInput
+        VInput,
+        VFileReader
     },
     props: {
         signedParameters: String,
@@ -46,6 +48,18 @@ const TestComponent = {
                 console.log(e.errors);
             })
         },
+        handleUpload(files) {
+            let formDataFile = new FormData();
+            if(files[0]) {
+                formDataFile.set('file', files[0])
+            }
+            runAction('uploadFiles', formDataFile, this.component, this.signedParameters).then((response) => {
+                alert('saveFiles');
+            }).catch((e) => {
+                alert('error');
+                console.log(e.errors);
+            })
+        },
     },
     template: `
         <div>
@@ -57,6 +71,9 @@ const TestComponent = {
             <button
                 @click="handleClick"
             >click</button>
+            <VFileReader
+                @upload="handleUpload"
+            />
 
         </div>
     `
