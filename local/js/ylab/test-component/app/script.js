@@ -4,13 +4,15 @@ import {VExample} from "../../shared/ui/VExample/script";
 import { VInput } from  "../components/VInput/script";
 import {runAction} from "./service";
 import {VFileReader} from "../../shared/ui/VFileReader/script";
+import {VBox} from "../../shared/ui/VBox/script";
 
 const TestComponent = {
     name: 'TestComponent',
     components: {
         VExample,
         VInput,
-        VFileReader
+        VFileReader,
+        VBox
     },
     props: {
         signedParameters: String,
@@ -26,7 +28,8 @@ const TestComponent = {
             component: this.component,
             formData: {
                 lastName: '',
-            }
+            },
+            errorHead: false
         }
     },
     created() {
@@ -47,6 +50,12 @@ const TestComponent = {
                 alert('error');
                 console.log(e.errors);
             })
+        },
+        handleUpdate() {
+            this.errorHead = true;
+        },
+        handleClick2() {
+            this.errorHead = false;
         },
         handleUpload(files) {
             let formDataFile = new FormData();
@@ -74,6 +83,8 @@ const TestComponent = {
             <VFileReader
                 @upload="handleUpload"
             />
+            <VBox :error="errorHead" @update="handleClick2"/>
+            <button @click="handleUpdate">UPDATE</button>
 
         </div>
     `
